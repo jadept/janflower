@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiệm Hoa Nhỏ — Flower Designer</title>
+<style>
+:root{--ink:#514047;--muted:#927f85;--pink:#e9829e;--line:#f1e4e2;--bg:#fff8f4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif}
+header{padding:17px 5vw;background:#fffdfb;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#ffdce5,#f2a9bb);display:grid;place-items:center;font-size:26px}.brand h1{font-size:18px;margin:0}.brand small{font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+header p{font-size:12px;color:var(--muted);margin:0}
+main{max-width:1160px;margin:auto;padding:28px 20px 55px}.intro{text-align:center;margin-bottom:25px}.eyebrow{font-size:10px;letter-spacing:2px;color:#ce7890;font-weight:bold}.intro h2{font-size:clamp(26px,4vw,36px);margin:9px 0;color:#604852}.intro p{font-size:13px;color:var(--muted);margin:0}
+.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}.panel{background:#fffdfb;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 12px 30px #9c71831a}.head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.head h3{font-size:16px;margin:0}.step{font-size:10px;font-weight:bold;color:#c66f89;background:#fff0f3;padding:6px 10px;border-radius:20px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.tab{border:1px solid var(--line);background:white;color:#8a737a;border-radius:20px;padding:8px 12px;font-size:11px;cursor:pointer}.tab.active{background:#ffe8ee;border-color:#f0b2c2;color:#a64e6c;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.flower{position:relative;border:1.5px solid #f1e7e4;background:#fff;border-radius:15px;padding:10px 5px;text-align:center;cursor:pointer;color:var(--ink)}.flower.selected{border-color:#e88da6;background:#fff4f6}.flower .emoji{font-size:29px;display:block}.flower b{display:block;font-size:11px;margin-top:4px}.flower small{font-size:9px;color:var(--muted)}.qty{position:absolute;right:6px;top:5px;background:#e984a0;color:white;border-radius:20px;min-width:18px;height:18px;font-size:10px;display:grid;place-items:center}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.field label{display:block;font-size:11px;font-weight:bold;margin-bottom:8px}.select{width:100%;border:1px solid #eee0dc;border-radius:11px;padding:10px;background:white;color:var(--ink);font:inherit;font-size:12px}.swatches{display:flex;gap:8px;flex-wrap:wrap}.swatch{width:27px;height:27px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #e7d9d8;cursor:pointer}.swatch.active{box-shadow:0 0 0 2px #d87591}
+.preview{position:sticky;top:15px}.result{height:430px;border-radius:17px;background:#fff;border:1px dashed #eadbd8;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.result img{width:100%;height:100%;object-fit:contain;display:none}.empty{text-align:center;padding:24px;color:#a48e94}.empty .big{font-size:65px;display:block;margin-bottom:12px}.empty b{font-size:14px;color:#715b62}.empty p{font-size:12px;line-height:1.6}.toolbar{display:flex;gap:9px;margin-top:14px}.btn{border:0;border-radius:13px;padding:12px 14px;font-size:12px;font-weight:bold;cursor:pointer}.primary{background:#e9829e;color:white;flex:1}.secondary{background:#fff0f3;color:#a45c72}.status{font-size:11px;line-height:1.5;color:#9a858b;margin-top:11px;min-height:18px}.spinner{width:40px;height:40px;border:4px solid #f8dce4;border-top-color:#df7895;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}@keyframes spin{to{transform:rotate(360deg)}}.count{font-size:11px;color:#987e86;margin-top:12px}.note{font-size:10px;color:#aa969a;line-height:1.5;margin-top:13px}
+@media(max-width:780px){header p{display:none}.layout{grid-template-columns:1fr}.preview{position:static;grid-row:1}.result{height:350px}}@media(max-width:420px){main{padding:20px 12px}.panel{padding:15px}.grid{grid-template-columns:repeat(2,1fr)}.fields{grid-template-columns:1fr}.result{height:310px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">🌷</div><div><h1>Tiệm Hoa Nhỏ</h1><small>FLOWER DESIGN STUDIO</small></div></div><p>Chọn hoa theo cách của bạn, tạo nên bó hoa của riêng mình ♡</p></header>
+<main>
+<section class="intro"><div class="eyebrow">YOUR LITTLE FLOWER STUDIO</div><h2>Tạo bó hoa trong mơ của bạn</h2><p>Chọn những loại hoa yêu thích, phối màu và hình dung thành phẩm của riêng mình.</p></section>
+<div class="layout">
+<section class="panel">
+<div class="head"><h3>🌼 Chọn hoa yêu thích</h3><span class="step">BƯỚC 01</span></div>
+<div class="tabs"><button class="tab active" data-cat="all">Tất cả</button><button class="tab" data-cat="main">Hoa chính</button><button class="tab" data-cat="filler">Hoa phụ</button><button class="tab" data-cat="green">Lá & cành</button></div>
+<div class="grid" id="flowerGrid"></div>
+<div class="fields">
+<div class="field"><label>🎨 Tông màu chủ đạo</label><div class="swatches">
+<button class="swatch active" data-color="Pastel hồng" style="background:#f6b4c4" title="Pastel hồng"></button><button class="swatch" data-color="Vàng nắng" style="background:#f4d17f" title="Vàng nắng"></button><button class="swatch" data-color="Tím mộng mơ" style="background:#c8b4e8" title="Tím"></button><button class="swatch" data-color="Trắng tinh khôi" style="background:#f7f2e8" title="Trắng"></button><button class="swatch" data-color="Đỏ lãng mạn" style="background:#e8878e" title="Đỏ"></button>
+</div></div>
+<div class="field"><label>🎀 Kiểu giấy gói</label><select class="select" id="wrap"><option>Giấy gói kem cao cấp</option><option>Giấy Hàn Quốc hồng pastel</option><option>Giấy trắng trong tối giản</option><option>Giấy kraft tự nhiên</option><option>Giấy đen sang trọng</option></select></div>
+<div class="field"><label>✨ Phong cách bó hoa</label><select class="select" id="style"><option>Sang trọng, lãng mạn</option><option>Tối giản, thanh lịch</option><option>Vườn hoa tự nhiên</option><option>Phong cách Hàn Quốc</option><option>Cổ điển châu Âu</option></select></div>
+<div class="field"><label>📝 Tên ý tưởng</label><input class="select" id="title" value="Một ngày dịu dàng" maxlength="40"></div>
+</div>
+<div class="count" id="count">Bạn chưa chọn hoa nào.</div>
+<p class="note">Bạn có thể chọn nhiều loại hoa và tăng số lượng bằng cách chạm nhiều lần vào từng loại.</p>
+</section>
+<section class="panel preview">
+<div class="head"><h3>💐 Bó hoa của bạn</h3><span class="step">BƯỚC 02</span></div>
+<div class="result"><img id="resultImage" alt="Bó hoa AI được tạo từ lựa chọn của bạn"><div class="empty" id="empty"><span class="big">💐</span><b>Bó hoa của bạn sẽ xuất hiện ở đây</b><p>Chọn hoa, phối màu và nhấn nút bên dưới.<br>AI sẽ tạo ảnh bó hoa chân thực, sang trọng trên nền trắng.</p></div><div id="loading" style="display:none;text-align:center;color:#a45c72"><div class="spinner"></div><b>AI đang thiết kế bó hoa...</b><p style="font-size:11px">Có thể mất khoảng 1–2 phút.</p></div></div>
+<div class="toolbar"><button class="btn primary" id="generate">✦ Generate My Bouquet</button><button class="btn secondary" id="download" disabled>↓ Tải ảnh</button><button class="btn secondary" id="reset">Làm mới</button></div>
+<div class="status" id="status" aria-live="polite">Hãy chọn hoa để bắt đầu lên ý tưởng nhé.</div>
+<p class="note">Ảnh được tạo bằng OpenAI Image API. Cần chạy backend và cấu hình API Key ở phía server; không nhập API Key vào file HTML.</p>
+</section>
+</div></main>
+<script>
+const flowers=[
+{id:'rose',name:'Hoa hồng',emoji:'🌹',cat:'main',note:'Ngọt ngào, lãng mạn',api:'garden roses'},
+{id:'tulip',name:'Tulip',emoji:'🌷',cat:'main',note:'Thanh lịch, dịu dàng',api:'tulips'},
+{id:'sun',name:'Hướng dương',emoji:'🌻',cat:'main',note:'Tươi vui, rạng rỡ',api:'sunflowers'},
+{id:'peony',name:'Mẫu đơn',emoji:'🌸',cat:'main',note:'Mềm mại, sang trọng',api:'peonies'},
+{id:'daisy',name:'Cúc họa mi',emoji:'🌼',cat:'main',note:'Trong trẻo, đáng yêu',api:'daisy flowers'},
+{id:'hydrangea',name:'Cẩm tú cầu',emoji:'💐',cat:'main',note:'Bồng bềnh, đầy đặn',api:'hydrangeas'},
+{id:'baby',name:'Baby',emoji:'🤍',cat:'filler',note:'Nhẹ nhàng, tinh khôi',api:"baby's breath gypsophila"},
+{id:'lavender',name:'Lavender',emoji:'🪻',cat:'filler',note:'Thơ mộng, thư thái',api:'lavender sprigs'},
+{id:'aster',name:'Thạch thảo',emoji:'💜',cat:'filler',note:'Nhỏ xinh, duyên dáng',api:'aster flowers'},
+{id:'euca',name:'Khuynh diệp',emoji:'🌿',cat:'green',note:'Xanh mát, hiện đại',api:'eucalyptus foliage'},
+{id:'fern',name:'Dương xỉ',emoji:'🍃',cat:'green',note:'Tự nhiên, mềm mại',api:'fern foliage'},
+{id:'branch',name:'Cành lá nhỏ',emoji:'🌱',cat:'green',note:'Tạo độ thoáng cho bó hoa',api:'delicate seasonal greenery'}
+];
+let chosen={},category='all',palette='Pastel hồng',paletteApi='pastel pink',currentImage=null;
+const grid=document.getElementById('flowerGrid');
+function draw(){grid.innerHTML='';flowers.filter(f=>category==='all'||f.cat===category).forEach(f=>{const n=chosen[f.id]||0;const b=document.createElement('button');b.className='flower'+(n?' selected':'');b.innerHTML=`${n?`<span class="qty">${n}</span>`:''}<span class="emoji">${f.emoji}</span><b>${f.name}</b><small>${f.note}</small>`;b.onclick=()=>{chosen[f.id]=Math.min(20,n+1);draw();updateCount()};grid.appendChild(b)})}
+function updateCount(){const total=Object.values(chosen).reduce((a,b)=>a+b,0);document.getElementById('count').textContent=total?`Đã chọn ${total} cành hoa/lá từ ${Object.keys(chosen).length} loại.`:'Bạn chưa chọn hoa nào.'}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');category=b.dataset.cat;draw()});
+document.querySelectorAll('.swatch').forEach(b=>b.onclick=()=>{document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active'));b.classList.add('active');palette=b.dataset.color;paletteApi=({ 'Pastel hồng':'soft pastel pink','Vàng nắng':'sunny yellow','Tím mộng mơ':'dreamy lavender','Trắng tinh khôi':'ivory white','Đỏ lãng mạn':'romantic red'})[palette]||palette});
+const generate=document.getElementById('generate'),download=document.getElementById('download'),loading=document.getElementById('loading'),empty=document.getElementById('empty'),image=document.getElementById('resultImage'),status=document.getElementById('status');
+generate.onclick=async()=>{const selected=flowers.filter(f=>chosen[f.id]).map(f=>({name:f.api,quantity:chosen[f.id]}));if(!selected.length){status.textContent='Bạn hãy chọn ít nhất một loại hoa trước nhé.';return}
+generate.disabled=true;download.disabled=true;loading.style.display='block';empty.style.display='none';image.style.display='none';status.textContent='Đang gửi thiết kế đến AI...';
+try{const response=await fetch('/api/generate-bouquet',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({flowers:selected,palette:paletteApi,style:document.getElementById('style').value,wrapping:document.getElementById('wrap').value,title:document.getElementById('title').value})});const data=await response.json();if(!response.ok)throw new Error(data.error||'Không thể tạo ảnh.');currentImage=data.image;image.src=currentImage;image.style.display='block';download.disabled=false;status.textContent='Bó hoa đã hoàn thành! Bạn có thể tải ảnh PNG về máy.'}
+catch(err){empty.style.display='block';status.textContent=err.message||'Có lỗi xảy ra. Hãy kiểm tra backend và thử lại.'}
+finally{loading.style.display='none';generate.disabled=false}};
+download.onclick=()=>{if(!currentImage)return;const a=document.createElement('a');a.href=currentImage;a.download='bo-hoa-cua-toi.png';a.click()};
+document.getElementById('reset').onclick=()=>{chosen={};currentImage=null;image.removeAttribute('src');image.style.display='none';empty.style.display='block';download.disabled=true;draw();updateCount();status.textContent='Đã làm mới. Hãy bắt đầu một ý tưởng mới nhé.'};
+draw();updateCount();
+</script>
+</body>
+</html>
